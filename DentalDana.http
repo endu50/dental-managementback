@@ -1,0 +1,6 @@
+@DentalDana_HostAddress = http://localhost:5139
+
+GET {{DentalDana_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

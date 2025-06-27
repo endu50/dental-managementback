@@ -1,0 +1,52 @@
+﻿## Ignore build output directories
+bin/
+obj/
+artifacts/
+TestResults/
+*.vspscc
+*.vssscc
+
+## Ignore Visual Studio temporary files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Ignore ASP.NET specific files
+appsettings.*.json
+secrets.json
+*.db
+*.db-shm
+*.db-wal
+
+## Ignore package management
+*.nupkg
+*.snupkg
+*.lock.json
+*.deps.json
+*.runtimeconfig.json
+*.runtimeconfig.dev.json
+
+## Ignore compiled files
+*.dll
+*.exe
+*.pdb
+
+## Logs
+*.log
+
+## OS generated files
+.DS_Store
+Thumbs.db
+
+## Rider / JetBrains
+.idea/
+
+## Others
+*.bak
+*.tmp
+*.cache
+*.swp
+*.swo
