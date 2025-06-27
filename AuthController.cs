@@ -6,6 +6,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using DentalDana.Migrations;
 
 
 namespace DentalDana 
@@ -44,6 +45,27 @@ namespace DentalDana
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Registered" });
+        }
+
+        [HttpGet("get")]
+        public async Task<ActionResult<IEnumerable<User>>> getAccount()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        [HttpDelete ("{id}")]
+
+        public async Task<ActionResult> deleteAccount(int id)
+        {
+           var user= await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound("Id Not found");
+            }
+
+            _context.Users.Remove(user);
+           await _context.SaveChangesAsync();
+            return NoContent();
         }
 
 
