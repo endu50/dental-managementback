@@ -15,18 +15,33 @@ public class AfroMessageService : ISmsSender
 
     public async Task<bool> SendOtpAsync(string phoneNumber, string otp)
     {
-        var url = "https://api.afromessage.com/api/send"; // Confirm actual endpoint
+        var url = "https://api.afromessage.com/api/send"; // Ensure this is the correct endpoint
 
         var payload = new
         {
             to = phoneNumber,
             message = $"Your verification code is {otp}",
-            sender = _config["AfroMessage:Sender"],
+            sender = _config["AfroMessage:Sender"],  // e.g., "DentalApp"
             api_key = _config["AfroMessage:ApiKey"]
         };
 
         var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-        var response = await _http.PostAsync(url, content);
-        return response.IsSuccessStatusCode;
+
+        try
+        {
+            var response = await _http.PostAsync(url, content);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine("AfroMessage response:");
+            Console.WriteLine(responseBody);
+
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error sending SMS: " + ex.Message);
+            return false;
+        }
     }
+
 }

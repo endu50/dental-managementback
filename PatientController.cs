@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DentalDana
 {
@@ -14,6 +15,7 @@ namespace DentalDana
             _context = context;
         }
 
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Patient>>> GetPatients()
         {
@@ -27,6 +29,20 @@ namespace DentalDana
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetPatients), new { id = patient.Id }, patient);
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Patient>> getPatientById(int id)
+        {
+            var patients = await _context.Patients.FindAsync(id);
+
+            if(patients==null)
+            {
+                return NotFound();
+            }
+
+            return Ok(patients);
+
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<Patient>> UpdatePatient(int id, [FromBody] Patient patient)
         {
